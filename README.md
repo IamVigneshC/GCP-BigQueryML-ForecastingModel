@@ -1,5 +1,14 @@
 # GCP-BigQueryML-ForecastingModel
-Use BigQuery to find public datasets. Query and explore the public taxi cab dataset. Create a training and evaluation dataset to be used for batch prediction. Create a forecasting (linear regression) model in BigQuery ML. Evaluate the performance of your machine learning model.
+
+• Use BigQuery to find public datasets
+
+• Query and explore the public taxi cab dataset
+
+• Create a training and evaluation dataset to be used for batch prediction
+
+• Create a forecasting (linear regression) model in BigQuery ML
+
+• Evaluate the performance of your machine learning model.
 
 ## Explore NYC taxi cab data
 How many trips did Yellow Cab taxis take each month in 2015?
@@ -39,17 +48,17 @@ The New York City Yellow Cab dataset is a public dataset provided by the city an
 
 Your team decides to test whether these below fields are good inputs to your fare forecasting model:
 
-Tolls amount
+• Tolls amount
 
-Fare amount
+• Fare amount
 
-Hour of the day
+• Hour of the day
 
-Pick up address
+• Pick up address
 
-Drop off address
+• Drop off address
 
-Number of passengers
+• Number of passengers
 
 
 Note a few things about the query:
