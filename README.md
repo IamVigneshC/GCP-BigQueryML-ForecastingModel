@@ -1,6 +1,35 @@
 # GCP-BigQueryML-ForecastingModel
 Use BigQuery to find public datasets. Query and explore the public taxi cab dataset. Create a training and evaluation dataset to be used for batch prediction. Create a forecasting (linear regression) model in BigQuery ML. Evaluate the performance of your machine learning model.
 
+## Explore NYC taxi cab data
+How many trips did Yellow Cab taxis take each month in 2015?
+
+#standardSQL
+SELECT
+  TIMESTAMP_TRUNC(pickup_datetime,
+    MONTH) month,
+  COUNT(*) trips
+FROM
+  `bigquery-public-data.new_york.tlc_yellow_trips_2015`
+GROUP BY
+  1
+ORDER BY
+  1
+Then click Run.
+
+You should receive the following result:
+
+![Image of CloudBuild](https://github.com/IamVigneshC/GCP-BigQueryML-ForecastingModel/blob/main/Result00.png)
+
+As we see, every month in 2015 had over 10 million NYC taxi trips—no small amount!
+
+Replace the previous query with AvgSpeed.sql
+
+You should receive the following result:
+
+![Image of CloudBuild](https://github.com/IamVigneshC/GCP-BigQueryML-ForecastingModel/blob/main/Result0.png)
+
+During the day, the average speed is around 11-12 MPH; but at 5:00 AM the average speed almost doubles to 21 MPH. Intuitively this makes sense since there is likely less traffic on the road at 5:00 AM.
 
 Create a machine learning model in BigQuery to predict the price of a cab ride in New York City given the historical dataset of trips and trip data. Predicting the fare before the ride could be very useful for trip planning for both the rider and the taxi agency.
 
@@ -37,6 +66,8 @@ Define a variable called TRAIN so that you can quickly build an independent EVAL
 
 total_fare is the label (what you will be predicting). You created this field out of tolls_amount and fare_amount, so you could ignore customer tips as part of the model as they are discretionary.
 
+![Image of CloudBuild](https://github.com/IamVigneshC/GCP-BigQueryML-ForecastingModel/blob/main/Result1.png)
+
 
 ## Create a BigQuery dataset to store models
 
@@ -64,6 +95,7 @@ Refer Train_Model_1.sql
 Next, click Run to train your model.
 
 Wait for the model to train (5 - 10 minutes).
+
 
 After your model is trained, you will see the message "This was a CREATE operation. Results will not be shown" which indicates that your model has been successfully trained.
 
@@ -101,6 +133,8 @@ Next you will write a query to use your new model to make predictions.
 
 Refer Predict.sql
 
+![Image of CloudBuild](https://github.com/IamVigneshC/GCP-BigQueryML-ForecastingModel/blob/main/Result2.png)
+
 Now you will see the model's predictions for taxi fares alongside the actual fares and other features for those rides. 
 
 
@@ -129,6 +163,7 @@ FROM
 `nyc-tlc.yellow.trips`
 WHERE trip_distance > 0 AND fare_amount BETWEEN 6 and 200
 
+![Image of CloudBuild](https://github.com/IamVigneshC/GCP-BigQueryML-ForecastingModel/blob/main/Result3.png)
 
 Refer Retrain_Model.sql
 
@@ -136,6 +171,8 @@ Refer Retrain_Model.sql
 Now that our linear regression model has been optimized, let's evaluate the dataset with it and see how it performs.
 
 Refer Evaluate_retrained_model.sql
+
+![Image of CloudBuild](https://github.com/IamVigneshC/GCP-BigQueryML-ForecastingModel/blob/main/Result4.png)
 
 As you see, you've now gotten the RMSE down to: +-$$5.12 which is significantly better than +-$$9.47 for your first model.
 
